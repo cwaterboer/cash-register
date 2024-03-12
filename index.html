@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+        }
+
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .valid {
+            color: green;
+        }
+
+        .invalid {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Cash Register</h2>
+
+<label for="priceInput">Enter purchase price:</label>
+<input type="number" id="priceInput" placeholder="Enter price">
+
+<label for="cashInput">Enter cash payment:</label>
+<input type="number" id="cashInput" placeholder="Enter cash">
+
+<button onclick="calculateChange()">Calculate Change</button>
+
+<p id="resultMessage"></p>
+
+<script>
+    function checkCashRegister(price, cash, cid) {
+      // Copy the existing checkCashRegister function here
+      // ...
+
+      let change = checkCashRegister(price, cash, cid);
+      return change;
+    }
+
+    function calculateChange() {
+        var priceInput = parseFloat(document.getElementById('priceInput').value);
+        var cashInput = parseFloat(document.getElementById('cashInput').value);
+        var resultMessage = document.getElementById('resultMessage');
+
+        if (isNaN(priceInput) || isNaN(cashInput)) {
+            resultMessage.innerHTML = "Please enter valid numbers for price and cash.";
+            return;
+        }
+
+        var cid = [
+            ["PENNY", 1.01],
+            ["NICKEL", 2.05],
+            ["DIME", 3.1],
+            ["QUARTER", 4.25],
+            ["ONE", 90],
+            ["FIVE", 55],
+            ["TEN", 20],
+            ["TWENTY", 60],
+            ["ONE HUNDRED", 100]
+        ];
+
+        var change = checkCashRegister(priceInput, cashInput, cid);
+
+        if (change.status === "INSUFFICIENT_FUNDS") {
+            resultMessage.innerHTML = "Insufficient funds in the cash register.";
+            resultMessage.className = "invalid";
+        } else if (change.status === "CLOSED") {
+            resultMessage.innerHTML = "Closed. Change provided: " + JSON.stringify(change.change);
+            resultMessage.className = "valid";
+        } else {
+            resultMessage.innerHTML = "Open. Change provided: " + JSON.stringify(change.change);
+            resultMessage.className = "valid";
+        }
+    }
+</script>
+
+</body>
+</html>
